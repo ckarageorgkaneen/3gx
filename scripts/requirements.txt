@@ -7,3 +7,5 @@ pandas
 scipy
 spacy
 dicttoxml
+greek-stemmer
+trie-search
