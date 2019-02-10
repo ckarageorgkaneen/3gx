@@ -9,18 +9,17 @@ A [GFOSS – Open Technologies Alliance](https://gfoss.eu/) project as part of [
 
 ---
 
-**Participant**: [Chris Karageorgiou Kaneen](https://github.com/ckarageorgkaneen)
+**Participant**: [Ioannis Kontopoulos](https://github.com/kontopoulos)
 
 **Mentors**: 
   - [Iraklis Varlamis](https://www.dit.hua.gr/~varlamis/)
   - [Theodoros Karounos](https://www.linkedin.com/in/tgkarounos/) 
-  - [Sarantos Kapidakis](http://thalassa.ionio.gr/staff/sarantos/homepage2.html)
 
 |Contents|
 | ------------- |
-|**Project**: [Description](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Description/), [Implementation](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Implementation/) | 
+|**Project**: [Description](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Description/), [Implementation](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/implementation/) | 
 |**CLI Tools**: [Fetch](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Fetch/), [Convert](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Convert/) |
-| **Operation**: [Install](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Install/), [Use](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Use/), [API](https://github.com/eellak/gsoc2018-GG-extraction/wiki/API/) |
+| **Operation**: [Install](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/install/), [Use](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/use/) |
 |**Future Work**: [Ideas](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/), [Contribute](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/) |
 
 ---
