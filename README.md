@@ -19,7 +19,7 @@ A [GFOSS – Open Technologies Alliance](https://gfoss.eu/) project as part of [
 | ------------- |
 |**Project**: [Description](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Description/), [Implementation](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/implementation/) | 
 |**CLI Tools**: [Fetch](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Fetch/), [Convert](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Convert/) |
-| **Operation**: [Install](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/install/), [Use](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/use/) |
+| **Operation**: [Install](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/installation/), [Use](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/use/) |
 |**Future Work**: [Ideas](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/), [Contribute](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/) |
 
 ---
