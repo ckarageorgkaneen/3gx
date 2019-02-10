@@ -5,7 +5,7 @@ import csv
 import sys
 import trie_search as ts
 import pandas as pd
-from main.parser import Parser
+from parser import Parser
 from greek_stemmer import GreekStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import GaussianNB
@@ -22,7 +22,7 @@ class TextPreprocessor:
 				stopwords.append(" " + line + " ")
 		# read stopwords from a file
 		self.stopwords = stopwords
-		self.regex = re.compile('^([0-9]|[Α-Ω]|[A-Z]|[a-z]|[α-ω]){1,2}(\.|\))')
+		self.regex = re.compile('^([0-9]|[Α-Ω]|[A-Z]|[a-z]|[α-ω]){1,4}(\.|\))')
 
 
 	def removeStopWords(self,text):
@@ -49,20 +49,20 @@ class TextPreprocessor:
 		string = re.sub(u"ϊ",u"ι",string)
 		return string.upper()
 
-	def getStemmedParagraph(self,text):
+	def getStemmedParagraph(self,text,headersize):
 		stemmer = GreekStemmer()
 		words = []
-		for word in self.removeStopWords(self.preprocessText(text)).split():
+		for word in self.removeStopWords(self.preprocessText(text))[:headersize].split():
 			stem = stemmer.stem(word)
 			words.append(stem)
 		return " ".join(words)
 
-	def getCleanText(self,text):
+	def getCleanText(self,text,headersize):
 		text = text.replace('\n',' ')
 		#pat = re.compile("\W+")
 		pat = re.compile("[^\w\.]+")
 		text = ' '.join(pat.split(text))
-		text = self.getStemmedParagraph(text)
+		text = self.getStemmedParagraph(text,headersize)
 		return text
 
 	def getParagraphsFromFolder(self,folder,headersize):
@@ -82,11 +82,8 @@ class TextPreprocessor:
 					paragraph = "".join(parlines)
 					raw_paragraphs.append(paragraph)
 					#paragraph = clean_and_caps(paragraph,startsWithNumber(paragraph),startsWithAlpha(paragraph),headersize, stemming)
-					paragraph = self.getStemmedParagraph(' '.join(pat.split(paragraph))) # remove punctuation from paragraph and stem paragraph
-					if headersize < 0:
-						stemmed_paragraphs.append(paragraph)
-					else:
-						stemmed_paragraphs.append(paragraph[:headersize])
+					paragraph = self.getStemmedParagraph(' '.join(pat.split(paragraph)),headersize) # remove punctuation from paragraph and stem paragraph
+					stemmed_paragraphs.append(paragraph)
 		return pd.DataFrame({'StemmedParagraph':stemmed_paragraphs,'RawParagraph':raw_paragraphs})
 
 	def getTermFrequency(self,paragraphs):

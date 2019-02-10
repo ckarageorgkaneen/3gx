@@ -21,7 +21,7 @@ def remove_unigrams_contained_in_bigrams(all_patterns):
 			subpatterns.append(pat)
 	return subpatterns
 
-def final_prediction(row):
+def total_prediction(row):
 	if row['OrgPrediction'] == 'Org':
 		return 'Org'
 	elif row['RespAPrediction'] == 'RespA':
@@ -29,7 +29,8 @@ def final_prediction(row):
 	else:
 		return 'Irrelevant'
 
-def create_trie_index(most_frequent_non_respas_stems_ordered,most_frequent_respas_stems_ordered,num_non_respa_docs,ratio):
+
+def create_trie_index(most_frequent_non_respas_stems_ordered,most_frequent_respas_stems_ordered,num_non_respa_docs,ratio,tp):
 	selected_df = most_frequent_non_respas_stems_ordered[most_frequent_non_respas_stems_ordered['frequency']/num_non_respa_docs>ratio]
 
 	sublist = list(selected_df['stems'])
@@ -45,10 +46,10 @@ def create_trie_index(most_frequent_non_respas_stems_ordered,most_frequent_respa
 
 	most_freq = new_df[new_df.frequency > int(meanvalue)] # get items for which frequency is greater than the mean frequency
 	freqstems = most_freq['stems'].values.tolist()
-	freqstemscopy=[]
+	freqstemscopy = []
 
 	for s in freqstems:
-    	if not tp.hasNumbers(s) and len(s) > 3: 
-        	freqstemscopy.append(s)        
+ 		if not tp.hasNumbers(s) and len(s) > 3: freqstemscopy.append(s)
+
 	trie = ts.TrieSearch(freqstemscopy) # create trie index from sublist terms that do not contain numbers
 	return trie
