@@ -1,7 +1,9 @@
+# grex
+
 ![license](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![language](https://img.shields.io/badge/python-3.x-green.svg)
 
-# NER & Metadata Extraction from the Greek Government Gazette 
+## NER & Metadata Extraction from the Greek Government Gazette 
 
 Extract Responsibility Assignments (RespA) to units of Public Administration Organizations (PAOrgs) and other useful data / metadata from Greek Government Gazette documents.
 
