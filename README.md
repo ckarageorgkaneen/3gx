@@ -9,7 +9,9 @@ A [GFOSS – Open Technologies Alliance](https://gfoss.eu/) project as part of [
 
 ---
 
-**Participant**: [Ioannis Kontopoulos](https://github.com/kontopoulos)
+**Participant**: [Chris Karageorgiou Kaneen](https://github.com/ckarageorgkaneen)
+
+**Refactoring & Improvements**: [Ioannis Kontopoulos](https://github.com/kontopoulos)
 
 **Mentors**: 
   - [Iraklis Varlamis](https://www.dit.hua.gr/~varlamis/)
