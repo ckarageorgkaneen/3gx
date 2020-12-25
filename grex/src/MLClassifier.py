@@ -6,7 +6,7 @@ import sys
 import trie_search as ts
 import pandas as pd
 import pickle
-import util.utils as utils
+import utils
 from parser import Parser
 from TextPreprocessor import TextPreprocessor
 from FeatureExtractor import FeatureExtractor

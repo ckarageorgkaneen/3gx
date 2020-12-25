@@ -1,10 +1,9 @@
 import os 
 import sys 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from collections import OrderedDict
-from util.helper import Helper
-import main.parser
-import main.classifier
+from helper import Helper
+import parser
+import classifier
 
 
 class Analyzer(object):

@@ -3,7 +3,6 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from io import StringIO
 from re import compile, sub, findall, search, escape, DOTALL, match
 from time import time
@@ -16,11 +15,11 @@ from nltk.tokenize import sent_tokenize
 from difflib import get_close_matches, SequenceMatcher
 # from polyglot.text import Text
 from collections import OrderedDict
-from util.helper import Helper
-from main.fetcher import Fetcher
+from helper import Helper
+from fetcher import Fetcher
 import spacy
 import el_core_web_sm
-import main.classifier
+import classifier
 
 class Parser(object):
 	"""Parse text and extract useful (meta)data mainly from GG Decision and Presidential Decree Issues"""

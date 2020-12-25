@@ -6,7 +6,7 @@ import sys
 import trie_search as ts
 import pandas as pd
 import pickle
-import util.utils as utils
+import utils
 from parser import Parser
 from greek_stemmer import GreekStemmer
 from sklearn.feature_extraction.text import CountVectorizer

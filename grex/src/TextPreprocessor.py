@@ -71,7 +71,7 @@ class TextPreprocessor:
 		for root,dirs,files in os.walk(folder):
 			for filename in sorted(files): # use better sorting for files
 				parlines = []
-				with open(folder + filename) as fp:
+				with open(folder + filename, errors="ignore") as fp:
 					for cnt,line in enumerate(fp):
 						if line.replace("\n","")[-1:] == "-" or line.replace("\n","")[-1:] == "−":
 							parlines.append(line.replace("\n","").replace("-","").replace("−","")) # remove hyphens that split words from paragraphs

@@ -1,6 +1,5 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from pandas import read_csv
 from sklearn.model_selection import train_test_split
 from sklearn import svm
@@ -10,8 +9,8 @@ from sklearn.tree import DecisionTreeClassifier
 from numpy import mean
 from math import sqrt
 from os import getcwd
-from util.helper import Helper
-import main.analyzer
+from helper import Helper
+import analyzer
 from collections import OrderedDict, defaultdict
 		
 class IssueOrArticleRespAClassifier():
