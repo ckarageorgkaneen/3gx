@@ -1,20 +1,11 @@
 import re
-import os
-import operator
-import csv
-import sys
-import trie_search as ts
 import pandas as pd
 import pickle
 import utils
 from parser import Parser
 from TextPreprocessor import TextPreprocessor
 from FeatureExtractor import FeatureExtractor
-from greek_stemmer import GreekStemmer
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import GaussianNB
 from sklearn import svm
-from sklearn.ensemble import RandomForestClassifier
 from functools import reduce
 
 class MLClassifier:
@@ -325,8 +316,3 @@ class MLClassifier:
 		self.respa_classifier.fit(df_train_respa[self.respa_used_features].values,df_train_respa['Class'])
 
 		return df_train_respa
-
-
-
-
-
