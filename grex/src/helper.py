@@ -1,37 +1,35 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import urllib
-from urllib.request import Request
-import shutil
-import urllib.parse
-import os
-import sys
-import json
 import collections
-import datetime
-import re
 import csv
-from json import dumps
+import datetime
+import json
+import os
+import re
+import shutil
+import urllib
+import urllib.parse
+
 from dicttoxml import dicttoxml
+from pickle import HIGHEST_PROTOCOL
+from pickle import dump
+from pickle import load
+from urllib.request import Request
 from xml.dom.minidom import parseString
-from pickle import dump, load, HIGHEST_PROTOCOL
 
-# Helper class that defines useful formatting and file handling functions
+
 class Helper:
-
-    # Initialize empty dict for saving compiled regex objects
     date_patterns = {}
     camel_case_patteren = re.compile("([α-ωά-ώ])([Α-ΩΆ-Ώ])")
     final_s_pattern = re.compile("(ς)([Α-ΩΆ-Ώα-ωά-ώ])")
     upper_s_pattern = re.compile("(Σ)(ΚΑΙ)")
     u_pattern = re.compile("(ύ)(και)")
 
-    # Converts upper / lowercase text with possible ambiguous latin characters to a fully greek uppercase word with
-    # no accents.
-    # @todo: Use regex or other way to speed up
     @staticmethod
     def normalize_greek_name(name):
+        """Convert text with possible latin characters to a greek uppercase
+        text with no accents.
+
+        @todo: Use regex or other way to speed up
+        """
         name = name.replace(",", " ")
         # α, β, γ, δ, ε, ζ, η, θ, ι, κ, λ, μ, ν, ξ, ο, π, ρ, σ, τ, υ, φ, χ, ψ, ω
         name = name.replace("ΐ", "ϊ").upper()
