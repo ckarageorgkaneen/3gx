@@ -5,7 +5,7 @@
 
 ## Extract and classify Greek Government Gazzette documents
 
-Extract and classify Responsibility Assignments (RespA) of Public Administration Organizations (PAOrgs).
+Extract and classify Responsibility Assignments (RespA) of Public Administration Organizations (PAOrgs)
 
 <p align="center">
   <img src="resources/respa_graph.png"/>
