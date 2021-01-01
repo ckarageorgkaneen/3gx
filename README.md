@@ -1,96 +1,132 @@
-# grex
+# ggx
 
 ![license](https://img.shields.io/badge/License-GPLv3-blue.svg)
-![language](https://img.shields.io/badge/python-3.x-green.svg)
+![language](https://img.shields.io/badge/python-3.6-green.svg)
 
-## NER & Metadata Extraction from the Greek Government Gazette 
+## Extract and classify Greek Government Gazzette documents
 
-Extract Responsibility Assignments (RespA) to units of Public Administration Organizations (PAOrgs) and other useful data / metadata from Greek Government Gazette documents.
-
-A [GFOSS – Open Technologies Alliance](https://gfoss.eu/) project as part of [Google's SoC 2018](https://summerofcode.withgoogle.com/).
-
----
-
-**Participant**: [Chris Karageorgiou Kaneen](https://github.com/ckarageorgkaneen)
-
-**Refactoring & Improvements**: [Ioannis Kontopoulos](https://github.com/kontopoulos)
-
-**Mentors**: 
-  - [Iraklis Varlamis](https://www.dit.hua.gr/~varlamis/)
-  - [Theodoros Karounos](https://www.linkedin.com/in/tgkarounos/) 
-
-|Contents|
-| ------------- |
-|**Project**: [Description](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Description/), [Implementation](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/implementation/) | 
-|**CLI Tools**: [Fetch](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Fetch/), [Convert](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Convert/) |
-| **Operation**: [Install](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/installation/), [Use](https://github.com/kontopoulos/gsoc2018-GG-extraction/wiki/use/) |
-|**Future Work**: [Ideas](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/), [Contribute](https://github.com/eellak/gsoc2018-GG-extraction/wiki/Ideas/) |
-
----
-
-The objective of this project was the identification and linkage of Government Directorates and Divisions with the responsibilities assigned to them, the types of services they are required to provide according to their legal framework published in http://www.et.gr/ and the extraction of this information with related metadata.
+Extract and classify Responsibility Assignments (RespA) of Public Administration Organizations (PAOrgs).
 
 <p align="center">
-  <img src="/docs/README_pics/main_objective_schema.png"/>
+  <img src="resources/respa_graph.png"/>
 </p>
 
-The aim was to link assigned roles and services per management unit (Directorates, Divisions & Sections) and codify this specific information into a machine readable format.
-
-The Issue type out of which this information can be extracted is Public Administration Organization Presidential Decrees, **such as**: 
+from issues such as:
 
 <p align="center">
-  <img src="/docs/README_pics/PAOrg_Pres_Decree_Example.png"/>
+  <img src="resources/issue_example.png"/>
 </p>
 
-During the course of the project Responsibility Assignment (RespA) classifiers were formulated and trained on and for the above issues of interest at the level of Issues, Articles and Paragraph-Sentence chunks of text. 
-
-Using semi-manual methods rough extracted data ***such as the following*** can be obtained:
-
-```
-{
-  "Το Τμήμα Β Παρακολούθησης Προϋπολογισμού και Αναφορών Εποπτευόμενων Φορέων Ανώτατης Εκπαίδευσης Εποπτείας Εταιρειών Αξιοποίησης και Διαχείρισης Περιουσίας των Πανεπιστημίων των": [
-        "4. Το Τμήμα Β΄ Παρακολούθησης Προϋπολογισμού \nκαι Αναφορών Εποπτευόμενων Φορέων Ανώτατης Εκπαίδευσης, Εποπτείας Εταιρειών Αξιοποίησης και Διαχείρισης Περιουσίας των Πανεπιστημίων, των Ειδικών \nΛογαριασμών Κονδυλίων Έρευνας (ΕΛΚΕ) των ΑΕΙ των \nΝΠΙΔ των ΑΕΙ και των ερευνητικών πανεπιστημιακών \nινστιτούτων των ΑΕΙ είναι αρμόδιο για:",
-        "α) τη σύνταξη των αποφάσεων έγκρισης και τροποποίησης των προϋπολογισμών, απολογισμών και την \nπαρακολούθηση εκτέλεσης των προϋπολογισμών, των \nφορέων Ανώτατης Εκπαίδευσης (Πανεπιστημίων, Τεχνολογικών Εκπαιδευτικών Ιδρυμάτων (ΤΕΙ), των Ανώτατων \nΕκκλησιαστικών Ακαδημιών, των Πανεπιστημιακών Νοσοκομείων αρμοδιότητας του ΥΠ.Π.Ε.Θ. και των Φοιτητικών Λεσχών των Πανεπιστημίων),",
-        "β) την υποβολή αιτήματος και σύνταξη αποφάσεων \nδέσμευσης πίστωσης και αποφάσεων επιχορήγησης των \nανωτέρω φορέων,",
-        "γ) τις προεγκρίσεις ανάληψης υποχρέωσης σε βάρος \nπροϋπολογισμών ΑΕΙ,",
-        "δ) τον έλεγχο και την αποστολή στοιχείων των φορέων \nμέσω του Τμήματος Οδηγιών και Δημοσιονομικών αναφορών, προς το ΓΛΚ και την Ελληνική Στατιστική Αρχή,",
-        "ε) τη μέριμνα για την έγκαιρη κοινοποίηση των εγκυκλίων και την παροχή κατευθύνσεων και οδηγιών προς \nτους εποπτευόμενους φορείς για την ορθή εκτέλεση του \nπροϋπολογισμού τους,",
-        "στ) την ενημέρωση του Μητρώου δεσμεύσεων,",
-        "ζ) τη βεβαίωση ύπαρξης πίστωσης στον προϋπολογισμό των ΑΕΙ για την πρακτική άσκηση των φοιτητών ΑΕΙ,",
-        "η) τη βεβαίωση ύπαρξης πιστώσεων στον προϋπολογισμό για τις αποζημιώσεις επιτροπών και συλλογικών \nοργάνων των φορέων αρμοδιότητας του Τμήματος,",
-        "θ) τη σύνταξη των Μνημονίων Συνεργασίας με τους \nφορείς που εποπτεύει, σύμφωνα με τα οριζόμενα στις \nκείμενες διατάξεις, το καθορισμό τριμηνιαίων στόχων \nεκτέλεσης προϋπολογισμού και την παρακολούθηση \nεκτέλεσης αυτών,",
-        "ι) τη σύνταξη οικονομικών εκθέσεων επί σχεδίων νόμων που αφορούν στην Τριτοβάθμια Εκπαίδευση,",
-        "ια) τον χειρισμό κάθε άλλου συναφούς θέματος."
-    ],
-    
-    "Το Τμήμα Γ Οργάνωσης και Απλούστευσης Διαδικασιών είναι αρμόδιο για": [
-        "5. Το Τμήμα Γ’ Οργάνωσης και Απλούστευσης Διαδικασιών είναι αρμόδιο για:",
-        "α) τον χειρισμό όλων των θεμάτων οργάνωσης και \nαπλούστευσης των διαδικασιών των υπηρεσιών του \nΥπουργείου και των εποπτευόμενων φορέων του, σε \nσυνεργασία με τους αρμόδιους φορείς, με στόχο την \nταχύτερη διεκπεραίωση των διοικητικών ενεργειών,",
-        "β) την ανάπτυξη και εφαρμογή σύγχρονων τεχνικών \nκαι μεθόδων εργασίας για την αύξηση της παραγωγικότητας των υπαλλήλων,",
-        "γ) τη μελέτη των χρησιμοποιούμενων εντύπων δικαιολογητικών, που κατά περίπτωση απαιτούνται να υποβάλλουν οι συναλλασσόμενοι και την εισήγηση για τη \nβελτίωση και τυποποίησή τους,",
-        "δ) τον χειρισμό κάθε άλλου συναφούς θέματος."
-    ],
-    
-    "Τμήμα A5 Καταχώρισης Δημοσιευμάτων και Παρακολούθησης Παραγωγής ΦΕΚ β βάρδια Το Τμήμα έχει τις ίδιες αρμοδιότητες με το Τμήμα Α3": [
-        "ε) Τμήμα A5 Καταχώρισης Δημοσιευμάτων και Παρακολούθησης Παραγωγής ΦΕΚ (β΄ βάρδια)\nΤο Τμήμα έχει τις ίδιες αρμοδιότητες με το Τμήμα Α3 \nκαι επιπλέον:",
-        "Εισάγει στοιχεία όλων των εγγράφων, σύμφωνα με \nτον ΚΑΔ στο ΟΠΣ, όπως ο αριθμός πρωτοκόλλου του \nδημοσιεύματος, ο αριθμός πρωτοκόλλου του διαβιβαστικού του φορέα και οι ημερομηνίες τους, καθώς και \nπεριλήψεις των εγγράφων, κ.λπ.).",
-        "Ελέγχει για τυχόν διπλές εγγραφές.",
-        "Επεξεργάζεται αρχικά τα κείμενα (έλεγχος πληρότητας \nστοιχείων, ορθότητα σύνταξης κειμένου κ.λπ.).",
-        "Ταξινομεί την επεξεργασμένη προς δημοσίευση ύλη \nκατά τεύχος ΦΕΚ."
-    ],
-    
-    ...
-}
+## Install
+```bash
+pip install -e .
 ```
 
-As OrderedDict data, JSON or XML formats.
+## Use
+### Train classifier and predict Greek Government Gazette PDF files
+```python
+from ggx.src.classifier import Classifier
 
-A set of data and metadata extractors was also implemented to extract useful sections and bits of information such as decision contents, summaries, bodies, etc. from Decision Issues as well as articles, issue dates, numbers, serial numbers etc. from different kinds of Issues.
+# FILES
+stopwords_file = 'ggx/data/greek_stopwords.txt'
+orgs_file = 'ggx/data/organizations.csv'
+# Premade organization trie index
+org_trie_file = 'ggx/data/training/pickle/0orgtrie.pkl'
+# Premade trie index for Responsibility Assignments
+respa_trie_index_file = 'ggx/data/training/pickle/1trie.pkl'
+# Premade weights of the frequent stems of the Responsibility Assignments
+respa_weights_file = 'ggx/data/training/pickle/1weights.pkl'
+# Phrases that refer to organizations
+orgs_training_file = 'ggx/data/training/organizations_training.csv'
+output_predictions_file = 'ggx/data/output_predictions.csv'
 
-One should assume an ~80% accuracy rate for the segmentation and extraction of the appropriate Responsibility sections. 
+# DIRECTORIES
+respas_dir = 'ggx/data/training/RespAs/'
+non_respas_dir = 'ggx/data/training/Non-RespAs/'
+input_pdf_dir = 'ggx/data/input_pdfs/'
+output_txt_dir = 'ggx/data/output_txts/'
 
----
-My progress can be found at [Projects](https://github.com/eellak/gsoc2018-GG-extraction/projects)
-and  short presentation of the project can be found at [Final Report](https://gist.github.com/ckarageorgkaneen/e04fbc5c35a99d06fe3718201ad7990c).
+# FILENAMES
+pdf_filename = 'random_GG_issue'
 
-More detailed info regarding Implementation, Usage, Future Work etc. can be found here: [Wiki](https://github.com/eellak/gsoc2018-GG-extraction/wiki).
+# RATIOS
+# How many frequent stems will be selected when creating a trie index for the
+# organizations. You can play around with this value to correct your
+# predictions.
+orgs_ratio = 0.015
+# Ratio similar to the organizations ratio
+respas_ratio = 0.02
+
+# LENGTHS
+org_len = 40
+respa_len = 50
+non_respa_len = 100
+
+# FLAGS
+# Create the trie index or read from file
+flag_create_trie_index = False
+
+# KEYS
+ARTICLE_NUMBER_KEY = 'ArticleNo'
+PREDICTION_KEY = 'Prediction'
+RAW_PARAGRAPH_KEY = 'RawParagraph'
+
+cl = Classifier(
+    stopwords_file,
+    orgs_file,
+    orgs_ratio,
+    org_len)
+cl.read_org_trie_from_file(org_trie_file)
+cl.read_trie_index_from_file(respa_trie_index_file)
+cl.read_weights_from_file(respa_weights_file)
+# Train the classifier with organization phrases
+cl.org_classifier_from_file(orgs_training_file)
+# Train the classifier with files containing RespA/Non-RespA phrases
+cl.respa_classifier_from_pdf_files(
+    respas_dir,
+    respa_len,
+    non_respas_dir,
+    non_respa_len,
+    respas_ratio,
+    flag_create_trie_index)
+# Predict a pdf file and return a dataframe
+predictions = cl.predict_pdf_file(
+    pdf_filename,
+    respa_len, org_len,
+    input_pdf_dir,
+    output_txt_dir)
+```
+### Output predictions and feed them to the [correction tool](https://thodoris.github.io/fekextractor/)
+```python
+predictions[[
+    ARTICLE_NUMBER_KEY,
+    PREDICTION_KEY,
+    RAW_PARAGRAPH_KEY
+]].to_csv(output_predictions_file, sep='\t')
+```
+### Correct predictions and export csv
+e.g. 
+
+<p align="center">
+  <img src="resources/correction_tool_example.png"/>
+</p>
+
+### Retrain classifier
+```python
+# This is the output csv file of the correction tool
+corrected_predictions_file = 'ExampleFile.csv'
+# This was produced by the classifier
+training_file = 'training_file.csv'
+cl.update_org_classifier(
+    orgs_training_file,
+    corrected_predictions_file,
+    org_len)
+cl.classifier_from_enriched_train_samples(
+    training_file,
+    corrected_predictions_file,
+    respa_len,
+    non_respa_len,
+    respas_ratio)
+```
+
+This project is an improvement of [the gsoc2018-GG-extraction fork](https://github.com/kontopoulos/gsoc2018-GG-extraction).
