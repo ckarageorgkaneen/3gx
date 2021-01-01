@@ -1,4 +1,9 @@
+import sys
 from setuptools import setup, find_packages
+
+MY_VERSION = sys.version_info
+if not (MY_VERSION.major == 3 and MY_VERSION.minor == 6):
+    sys.exit('Only Python 3.6 is currently supported.')
 
 PACKAGE_NAME = 'grex'
 
