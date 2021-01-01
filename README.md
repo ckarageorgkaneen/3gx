@@ -129,4 +129,6 @@ cl.classifier_from_enriched_train_samples(
     respas_ratio)
 ```
 
+For more details, check out the [Implementation](https://github.com/ckarageorgkaneen/ggx/wiki/Implementation).
+
 This project is an improvement of [the gsoc2018-GG-extraction fork](https://github.com/kontopoulos/gsoc2018-GG-extraction).
