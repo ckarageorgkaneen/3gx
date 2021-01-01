@@ -19,7 +19,7 @@ from issues such as:
 
 ## Install
 ```bash
-pip install -e .
+make
 ```
 
 ## Use
